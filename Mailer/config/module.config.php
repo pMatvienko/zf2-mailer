@@ -5,46 +5,22 @@ namespace Mailer;
 return [
     'mailer'          => array(
         'notification' => array(
-            'transport'       => 'Mailer/Notification/Transport',
-            'log'          => 'Mailer/Notification/Log',
+            'transport'       => 'Mailer\Notification\Transport',
+            'log'          => 'Mailer\Notification\Log',
             'mailSettings' => array(
-                'defaultFrom'     => 'noreply@sandbox.in.ua',
-                'defaultFromName' => 'Sandbox Notification',
-                'encoding'        => 'UTF-8',
+                'defaultFrom'     => '',
+                'defaultFromName' => '',
+                'encoding'        => '',
             )
         ),
     ),
     'service_manager' => [
         'invokables' => [
-            'Mailer/Model/Notification'                => 'Mailer\Model\NotificationModel',
-            'Mailer/Grid/Notification'                 => 'Mailer\Grid\NotificationGrid',
-//            'Mailer/Service/NotificationEventListener' => 'Mailer\Service\NotificationEventListener',
+            'Mailer\Model\Notification'                => 'Mailer\Model\NotificationModel',
+            'Mailer\Grid\Notification'                 => 'Mailer\Grid\NotificationGrid',
         ],
         'factories'  => array(
-            'Mailer/Service/NotificationEventListener' => 'Mailer\Factory\NotificationEventListenerFactory',
-            'Mailer/Notification/Transport' => function($sm){
-                $transport = new \Zend\Mail\Transport\Smtp();
-                $transport->setOptions(
-                    new \Zend\Mail\Transport\SmtpOptions(array(
-                        'name'              => 'mandrillapp.com',
-                        'host'              => 'smtp.mandrillapp.com',
-                        'port'              => 587,
-                        'connection_class'  => 'login',
-                        'connection_config' => array(
-                            'username' => 'shturman.p@gmail.com',
-                            'password' => 'd8SrF30PZI1ps2uDSM_XeA',
-                        ),
-                    ))
-                );
-                return $transport;
-            },
-            'Mailer/Notification/Log' => function($sm){
-                $logger = new \Zend\Log\Logger();
-                $logger->addWriter(
-                    new \Zend\Log\Writer\Stream(dirname(dirname(dirname(__DIR__))).'/data/log/notification/'.date('Y-m-d') . '.log')
-                );
-                return $logger;
-            }
+            'Mailer\Service\NotificationEventListener' => 'Mailer\Factory\NotificationEventListenerFactory',
         )
     ],
     'view_manager'    => [

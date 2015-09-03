@@ -16,6 +16,7 @@ class NotificationEventListenerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+
         $config = $serviceLocator->get('config');
         $config = $config['mailer']['notification'];
 
