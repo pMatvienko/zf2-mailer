@@ -1,0 +1,44 @@
+<?php
+
+namespace Mailer;
+
+return [
+    'mailer'          => [
+        'notification' => [
+            'transport'    => 'Mailer\Notification\Transport',
+            'log'          => 'Mailer\Notification\Log',
+            'mailSettings' => [
+                'defaultFrom'     => '{Your default From}',
+                'defaultFromName' => '{Default From Name}',
+                'encoding'        => 'UTF-8',
+            ],
+        ],
+    ],
+    'service_manager' => [
+        'factories' => [
+            'Mailer\Notification\Transport' => function ($sm) {
+                $transport = new \Zend\Mail\Transport\Smtp();
+                $transport->setOptions(
+                    new \Zend\Mail\Transport\SmtpOptions([
+                        'name'              => '{your smtp server name}',
+                        'host'              => '{your smtp server host}',
+                        'port'              => 587,
+                        'connection_class'  => 'login',
+                        'connection_config' => [
+                            'username' => '{username}',
+                            'password' => '{password}',
+                        ],
+                    ])
+                );
+                return $transport;
+            },
+            'Mailer\Notification\Log'       => function ($sm) {
+                $logger = new \Zend\Log\Logger();
+                $logger->addWriter(
+                    new \Zend\Log\Writer\Stream('data/log/notification/' . date('Y-m-d') . '.log')
+                );
+                return $logger;
+            },
+        ],
+    ],
+];
