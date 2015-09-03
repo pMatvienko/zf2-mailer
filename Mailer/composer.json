@@ -1,0 +1,37 @@
+{
+  "name": "sbx-zf2/mailer",
+  "description": "Mailer module for zf2",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "mailer",
+    "zf2",
+    "module"
+  ],
+  "homepage": "https://github.com/pMatvienko/zf2-mailer",
+  "authors": [
+    {
+      "name": "Pavel Matviienko",
+      "email": "shturman.p@gmail.com",
+      "homepage": "http://pavels.in.ua"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.3",
+    "zendframework/zendframework": "2.*",
+    "sbx-zf2/common":"*",
+    "doctrine/doctrine-orm-module":"*",
+    "sbx-zf2/data-grid":"*"
+  },
+  "suggest": {
+    "sbx-zf2/access-control": "RBAC acl implementation with NVC structure scanner"
+  },
+  "autoload": {
+    "psr-0": {
+      "Mailer": "./Mailer/src/"
+    },
+    "classmap": [
+      "./Mailer/Module.php"
+    ]
+  }
+}

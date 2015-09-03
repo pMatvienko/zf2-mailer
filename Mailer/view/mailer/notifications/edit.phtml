@@ -1,0 +1,9 @@
+<h1><?php echo $this->translate($this->caption)?></h1>
+<?php echo $this->bootstrapForm($this->form)?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('[role="pipe-variables"]').pipeFields({
+            fields: <?php echo json_encode(explode(',',$this->form->get('variables')->getValue()))?>
+        });
+    })
+</script>
